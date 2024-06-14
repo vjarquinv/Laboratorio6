@@ -1,16 +1,7 @@
+// Laboratorio 6 -- Stack -- Valeria Jarquin Vargas, B83986
 #include <stdio.h>
 #include <stdlib.h>
-
-// Estructura para un nodo de la lista enlazada
-typedef struct Node {
-    int data;
-    struct Node* next;
-} Node;
-
-// Estructura para la pila
-typedef struct Stack {
-    Node* top;
-} Stack;
+#include "stack.h"
 
 // Funcion para inicializar la pila
 void initialize(Stack* stack) {
@@ -34,32 +25,32 @@ void Push(Stack* stack, int value) {
     // El valor siguiente va a ser el top de el stack
     newNode->next = stack->top;
     stack->top = newNode;
-    printf("Se hizo push del valor %d en la pila\n", value);
+    printf("Se hizo push del elemento %d en el stack\n", value);
 }
 
 // Funcion para hacer pop en la pila y 
 int Pop(Stack* stack) {
     // Se verifica si la pila esta vacia
     if (isEmpty(stack)) {
-        printf("La pila esta vacia. No se puede hacer pop.\n");
+        printf("El stack esta vacio. No se puede hacer pop.\n");
         return 1; // Se devuelve un 1 para indicar que la pila esta vacia
     }
     Node* temp = stack->top;
     int poppedValue = temp->data;
     stack->top = stack->top->next;
     free(temp);
-    printf("Se hizo pop del valor %d de la pila\n", poppedValue);
+    printf("Se hizo pop del elemento %d del stack\n", poppedValue);
     return poppedValue;
 }
 
 // Funcion que devuelve el elemento en la parte superior de la pila sin eliminarlo
 int Peek(Stack* stack) {
     if (isEmpty(stack)) {
-        printf("La pila esta vacia. No se puede hacer peek.\n");
+        printf("El stack esta vacio. No se puede hacer peek.\n");
         return 1; // Se devuelve un 1 para indicar que la pila esta vacia
     }
     int topValue = stack->top->data;
-    printf("El elemento en la parte superior de la pila es %d\n", topValue);
+    printf("El elemento en la parte superior del stack es %d\n", topValue);
     return topValue;
 }
 
@@ -68,10 +59,10 @@ void printStack(Stack* stack) {
     Node* temp = stack->top;
     // Si la pila esta vacia
     if (temp == NULL) {
-        printf("La pila esta vacia\n");
+        printf("El stack esta vacio\n");
         return;
     }
-    printf("Los valores en la pila:\n");
+    printf("Los elementos en el stack:\n");
     while (temp != NULL) {
         printf("%d ", temp->data);
         temp = temp->next;
@@ -91,39 +82,4 @@ void freeStack(Stack* stack) {
         temp = nextNode;
     }
     stack->top = NULL;
-}
-
-int main() {
-    Stack stack;
-    initialize(&stack);
-
-    Push(&stack, 1);
-    Push(&stack, 2);
-    Push(&stack, 3);
-
-    printStack(&stack);
-
-    Pop(&stack);
-    Pop(&stack);
-    printStack(&stack);
-
-    Pop(&stack);
-    
-
-    printStack(&stack);
-
-    Push(&stack, 4);
-    Push(&stack, 5);
-    printStack(&stack);
-
-    Peek(&stack);
-    printStack(&stack);
-    Pop(&stack);
-    Pop(&stack);
-    Peek(&stack);
-    printStack(&stack);
-
-
-    freeStack(&stack);
-    return 0;
 }
