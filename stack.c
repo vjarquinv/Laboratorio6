@@ -52,6 +52,17 @@ int Pop(Stack* stack) {
     return poppedValue;
 }
 
+// Funcion que devuelve el elemento en la parte superior de la pila sin eliminarlo
+int Peek(Stack* stack) {
+    if (isEmpty(stack)) {
+        printf("La pila esta vacia. No se puede hacer peek.\n");
+        return 1; // Se devuelve un 1 para indicar que la pila esta vacia
+    }
+    int topValue = stack->top->data;
+    printf("El elemento en la parte superior de la pila es %d\n", topValue);
+    return topValue;
+}
+
 // Funcion para imprimir la pila completa
 void printStack(Stack* stack) {
     Node* temp = stack->top;
@@ -95,11 +106,23 @@ int main() {
     Pop(&stack);
     Pop(&stack);
     printStack(&stack);
-    
+
     Pop(&stack);
     
 
     printStack(&stack);
+
+    Push(&stack, 4);
+    Push(&stack, 5);
+    printStack(&stack);
+
+    Peek(&stack);
+    printStack(&stack);
+    Pop(&stack);
+    Pop(&stack);
+    Peek(&stack);
+    printStack(&stack);
+
 
     freeStack(&stack);
     return 0;
