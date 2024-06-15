@@ -13,7 +13,7 @@ int isEmpty(Stack* stack) {
     return stack->top == NULL;
 }
 
-// Funcion para hacer push en la pila
+// Funcion para hacer push en la pila (Agrega un elemento a la parte superior de la pila)
 void Push(Stack* stack, int value) {
     // Reservar memoria
     Node* newNode = (Node*)malloc(sizeof(Node));
@@ -28,7 +28,7 @@ void Push(Stack* stack, int value) {
     printf("Se hizo push del elemento %d en el stack\n", value);
 }
 
-// Funcion para hacer pop en la pila y 
+// Funcion para eliminar y devolver el elemento en la parte superior de la pila
 int Pop(Stack* stack) {
     // Se verifica si la pila esta vacia
     if (isEmpty(stack)) {
@@ -36,7 +36,9 @@ int Pop(Stack* stack) {
         return 1; // Se devuelve un 1 para indicar que la pila esta vacia
     }
     Node* temp = stack->top;
+    // Se asigna el elemento que se va a eliminar
     int poppedValue = temp->data;
+    // El elemento en la parte superior de la cima pasa a hacer el siguiente
     stack->top = stack->top->next;
     free(temp);
     printf("Se hizo pop del elemento %d del stack\n", poppedValue);
@@ -49,6 +51,7 @@ int Peek(Stack* stack) {
         printf("El stack esta vacio. No se puede hacer peek.\n");
         return 1; // Se devuelve un 1 para indicar que la pila esta vacia
     }
+    // Se asigna el elemento en la parte superior de la pila
     int topValue = stack->top->data;
     printf("El elemento en la parte superior del stack es %d\n", topValue);
     return topValue;
@@ -63,6 +66,7 @@ void printStack(Stack* stack) {
         return;
     }
     printf("Los elementos en el stack:\n");
+    // Mientras la variable temp sea distinta a NULL se va a imprimir el siguiente elemento
     while (temp != NULL) {
         printf("%d ", temp->data);
         temp = temp->next;
